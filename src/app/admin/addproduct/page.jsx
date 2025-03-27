@@ -12,7 +12,8 @@ const Page = () => {
   const categoryRef = useRef(null);
   const authorRef = useRef(null);
 
-  const siteUrl = process.env.NEXT_PUBLIC_BACKEND_URL 
+  const apiUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3000'
+
 
 
 
@@ -27,17 +28,17 @@ const Page = () => {
     formData.append('image', image);
 
     try {
-      const response = await axios.post(`${siteUrl}/api/blog`, formData, {
+      const response = await axios.post(`${apiUrl}/api/blog`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      console.log(response.data.blogData);
+      console.log(response.data);
       if (response.data.success) {
-        toast.success(response.data.msg);
+        toast.success(response.data.message);
         setImage(null);
         formRef.current.reset(); // Reset the form
       } else {
-        toast.error(response.data.msg || 'Something went wrong');
+        toast.error(response.data.message || 'Something went wrong');
       }
     } catch (error) {
       toast.error('An error occurred while submitting the form');
@@ -122,7 +123,7 @@ const Page = () => {
         </select>
 
         <br />
-        <button type="submit" className="rounded mt-8 w-40 h-12 bg-black text-white">
+        <button type="submit" className="rounded mt-8 w-40 h-12 bg-black text-white cursor-pointer">
           Add Blog
         </button>
       </form>

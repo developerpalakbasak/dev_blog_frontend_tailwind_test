@@ -10,18 +10,18 @@ const BlogList = () => {
     const [loader, setLoader] = useState(true)
     const [error, setError] = useState(false)
 
-    const siteUrl = process.env.NEXT_PUBLIC_BACKEND_URL
+    const apiUrl = process.env.NEXT_PUBLIC_BACKEND_URL
 
     const fetchBlogs = async () => {
         try {
 
-            const response = await axios.get(`${siteUrl}/api/blogS`);
+            const response = await axios.get(`${apiUrl}/api/blogs`);
 
 
             const { data } = response
 
 
-            // console.log(data.blogs)
+            console.log(data.blogs)
 
             setBlogs(data.blogs);
             setLoader(false)

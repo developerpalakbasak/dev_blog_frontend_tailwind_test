@@ -10,14 +10,14 @@ const page = () => {
   const [loading, setLoading] = useState(true); // Loading state
   const revBlogs = [...blogs].reverse();
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+  const apiUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3000'
 
 
 
   const fetchBlogs = async () => {
     try {
 
-        const response = await axios.get(`${siteUrl}/api/blog`);
+        const response = await axios.get(`${apiUrl}/api/blogs`);
 
 
         const { data } = response
@@ -35,16 +35,20 @@ const page = () => {
 
 }
 
-console.log(blogs)
+// console.log(blogs)
 
 
   const deleteBlog = async (mongoId) => {
     try {
-      const res = await axios.delete(`/api/blog?id=${mongoId}`);
+      const res = await axios.delete(`${apiUrl}/api/blog?id=${mongoId}`);
 
       console.log(res.data);
-      
-      toast.success(res.data.msg);
+      if(res.data.success){
+        toast.success(res.data.message);
+      }else{
+        toast.error(res.data.message)
+      }
+
       fetchBlogs();
     } catch (error) {
       toast.error('Failed to delete blog');
