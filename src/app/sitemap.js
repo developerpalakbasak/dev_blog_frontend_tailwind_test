@@ -39,4 +39,4 @@ export default async function sitemap() {
 
   // Combine static pages and blog entries
   return [...staticPages, ...blogEntries];
-}
+}export const dynamic = 'force-dynamic';

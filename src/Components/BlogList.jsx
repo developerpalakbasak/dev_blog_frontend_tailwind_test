@@ -21,9 +21,6 @@ const BlogList = () => {
 
             const { data } = response
 
-
-            console.log(data.blogs)
-
             setBlogs(data.blogs);
             setLoader(false)
         } catch (error) {
