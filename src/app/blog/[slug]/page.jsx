@@ -1,5 +1,6 @@
 "use client";
 import Footer from "@/Components/Footer";
+import Loader from "@/Components/Loader";
 import Menu from "@/Components/Menu";
 import axios from "axios";
 import Image from "next/image";
@@ -27,7 +28,7 @@ const Blog = ({ params }) => {
 
     }, [params]);
 
-console.log(blogData)
+    console.log(blogData)
 
 
     return blogData ? <>
@@ -53,9 +54,10 @@ console.log(blogData)
 
         <Footer />
 
-    </> : <>
-        <h1 className="flex content-center justify-center">Loading</h1>
-    </>
+    </> :
+        <div className="flex justify-center items-center h-[90vh]">
+            <Loader />
+        </div>
 };
 
 export default Blog;

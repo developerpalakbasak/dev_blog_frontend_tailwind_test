@@ -1,4 +1,5 @@
 "use client"
+import Loader from '@/Components/Loader';
 import axios from 'axios';
 import Image from 'next/image';
 import React, { useRef, useState } from 'react';
@@ -6,6 +7,7 @@ import { toast } from 'react-toastify';
 
 const Page = () => {
   const [image, setImage] = useState(null);
+  const [loading, setLoading] = useState(false)
   const formRef = useRef(null);
   const titleRef = useRef(null);
   const descriptionRef = useRef(null);
@@ -18,6 +20,7 @@ const Page = () => {
 
 
   const onSubmitHandler = async (e) => {
+    setLoading(true)
     e.preventDefault();
 
     const formData = new FormData();
@@ -40,6 +43,7 @@ const Page = () => {
       } else {
         toast.error(response.data.message || 'Something went wrong');
       }
+      setLoading(false)
     } catch (error) {
       toast.error('An error occurred while submitting the form');
     }
@@ -123,9 +127,15 @@ const Page = () => {
         </select>
 
         <br />
-        <button type="submit" className="rounded mt-8 w-40 h-12 bg-black text-white cursor-pointer">
+      <div className='mt-8'>
+        {loading?<span className=' mt-2 w-30 flex justify-center items-center'>
+          <Loader/>
+      </span>: <button type="submit" className="rounded w-40 h-12 bg-black text-white cursor-pointer">
           Add Blog
-        </button>
+        </button>}
+        
+      </div>
+      
       </form>
     </div>
   );
