@@ -2,6 +2,7 @@
 import BlogItem from "./BlogItem"
 import { useEffect, useState } from "react"
 import axios from "axios";
+import Loader from "./Loader";
 
 const BlogList = () => {
 
@@ -65,7 +66,9 @@ const BlogList = () => {
             {<div className="flex flex-wrap justify-around gap-1 gap-y-10 mb-16 xl:mx-24">
                 {
                     !error ? (loader ? (
-                        "Loading"
+                        <div className="flex justify-center items-center">
+                                    <Loader />
+                                </div>
                     ) : (
                         blogs.length < 1 ? (
                             "No Post Available"
